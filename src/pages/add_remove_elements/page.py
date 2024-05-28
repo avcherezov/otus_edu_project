@@ -8,16 +8,21 @@ class AddRemoveElements(BasePage):
     def find_title_add_remove_elements(self):
         """Найти заголовок раздела - Add/Remove Elements"""
         return self._find_element(self._driver, AddRemoveElementsLocators.TITLE)
-    
+
     @func_info
     def click_add_element(self):
         """Нажать кнопку - Add Element"""
         return self._click_element(self._driver, AddRemoveElementsLocators.BUTTON_ADD_ELEMENT)
-    
+
     @func_info
     def find_button_delete(self):
         """Найти кнопку - Delete"""
         return self._find_element(self._driver, AddRemoveElementsLocators.BUTTON_DELETE)
+
+    @func_info
+    def click_button_delete(self):
+        """Нажать кнопку - Delete"""
+        return self._click_element(self._driver, AddRemoveElementsLocators.BUTTON_DELETE)
 
 
 class FindTitleAddRemoveElements(ICommand):
@@ -42,3 +47,11 @@ class FindButtonDelete(ICommand):
 
     def execute(self):
         return self.__executor.find_button_delete()
+
+
+class ClickButtonDelete(ICommand):
+    def __init__(self, executor):
+        self.__executor = executor
+
+    def execute(self):
+        return self.__executor.click_button_delete()

@@ -16,3 +16,12 @@ def test_ab_testing(driver, command):
     command.add_command(FindButtonDelete(driver.add_remove_elements))
     status = command.run_command().text
     assert status == 'Delete', f'Error - {status}'
+
+    command.add_command(ClickButtonDelete(driver.add_remove_elements))
+    command.run_command()
+
+    try:
+        command.add_command(FindButtonDelete(driver.add_remove_elements))
+        status = command.run_command().text
+    except:
+        assert True

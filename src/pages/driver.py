@@ -5,6 +5,8 @@ from selenium import webdriver
 from pages.main.page import MainPage
 from pages.ab_test_control.page import ABTestControl
 from pages.add_remove_elements.page import AddRemoveElements
+from pages.checkboxes.page import Checkboxes
+from pages.dynamic_loading.page import DynamicLoading
 
 
 class IObject(ABC):
@@ -46,14 +48,14 @@ class UObject(IObject):
 
     def close_browser(self):
         self.driver.quit()
-    
+
     def get_main_page(self):
         self.driver.get('http://the-internet.herokuapp.com')
 
     @property
     def main_page(self):
         return MainPage(self.driver)
-    
+
     @property
     def ab_test_control(self):
         return ABTestControl(self.driver)
@@ -61,3 +63,11 @@ class UObject(IObject):
     @property
     def add_remove_elements(self):
         return AddRemoveElements(self.driver)
+
+    @property
+    def checkboxes(self):
+        return Checkboxes(self.driver)
+
+    @property
+    def dynamic_loading(self):
+        return DynamicLoading(self.driver)

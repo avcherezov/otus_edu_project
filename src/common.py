@@ -15,15 +15,29 @@ class ICommand(ABC):
 class Command:
     def __init__(self):
         self.store = []
-    
+
     def add_command(self, command):
         self.store.append(command)
-    
+
     def run_command(self):
         return self.store.pop(0).execute()
-    
+
     def clear(self):
         self.store.clear()
+
+
+class IOCContainer:
+    def __init__(self):
+        self._registrations = {}
+
+    def register(self, key, implementation):
+        self._registrations[key] = implementation
+
+    def resolve(self, key):
+        implementation = self._registrations.get(key)
+        if not implementation:
+            raise ValueError(f"No registration found for key: {key}")
+        return implementation()
 
 
 class ExceptionHandler:
@@ -59,4 +73,3 @@ def func_info(func):
                     with allure.step(str(output)):
                         return output
     return _wrapper
-

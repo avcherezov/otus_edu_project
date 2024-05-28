@@ -1,7 +1,7 @@
 import pytest
 
 from pages.driver import UObject
-from common import Command
+from common import Command, IOCContainer
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -13,12 +13,14 @@ def driver():
 
 @pytest.fixture(autouse=True)
 def command():
-    command = Command()
+    ioc = IOCContainer()
+    ioc.register('command', Command)
+    command = ioc.resolve('command')
     yield command
     command.clear()
 
 
 @pytest.fixture(autouse=True)
 def get_main_page(driver):
-    yield 
+    yield
     driver.get_main_page()
